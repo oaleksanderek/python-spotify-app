@@ -42,7 +42,7 @@ def search_artist(token, arist_name):
     return json_result[0]
 
 def get_artist_top_songs(token, artist_id):
-    url = f"https://api.spotify.com/v1/artists/{artist_id}/top-tracks?country=US"
+    url = f"https://api.spotify.com/v1/artists/{artist_id}/top-tracks?country=PL"
     headers = get_auth_header(token)
     result = get(url, headers=headers)
     json_result = json.loads(result.content)["tracks"]
@@ -50,26 +50,26 @@ def get_artist_top_songs(token, artist_id):
 
 
 token = get_token()
-result = search_artist(token, "Harry Styles")
+result = search_artist(token, "Taco Hemingway")
 artist_id = result["id"]
 top_songs = get_artist_top_songs(token, artist_id)
 
-# for i, song in enumerate(top_songs):
-#     print(f"{i + 1}. {song['name']}")
+for i, song in enumerate(top_songs):
+    print(f"{i + 1}. {song['name']} : {song['popularity']}")
 
-top_songs_dict = {
-    "name": [],
-    "popularity": []
-}
-names = []
-popularity = []
-for song in top_songs:
-    names.append(song["name"])
-    popularity.append(song["popularity"])
+# top_songs_dict = {
+#     "name": [],
+#     "popularity": []
+# }
+# names = []
+# popularity = []
+# for song in top_songs:
+#     names.append(song["name"])
+#     popularity.append(song["popularity"])
 
-top_songs_dict["name"] = names
-top_songs_dict["popularity"] = popularity
+# top_songs_dict["name"] = names
+# top_songs_dict["popularity"] = popularity
 
 
-for i, name in enumerate(top_songs_dict["name"]):
-    print(f"{i + 1}. {name}, popularity = {top_songs_dict['popularity'][i]}")
+# for i, name in enumerate(top_songs_dict["name"]):
+#     print(f"{i + 1}. {name}, popularity = {top_songs_dict['popularity'][i]}")
